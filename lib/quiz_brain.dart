@@ -1,7 +1,7 @@
 import 'question.dart';
 
 class QuizBrain {
-  List<Question> questionBank = [
+  final List<Question> _questionBank = [
     Question('Flutter is developed by Google.', true),
     Question('Flutter can only be used for mobile app development.', false),
     Question('Dart is the programming language used in Flutter.', true),
@@ -18,4 +18,12 @@ class QuizBrain {
     Question('Null safety is a feature available in newer versions of Dart.', true),
     Question('Flutter uses Canvas for rendering elements on the screen.', true),
   ];
+
+  String getQuestionText(int questionNumber) {
+    return _questionBank[questionNumber].questionText;
+  }
+  bool getQuestionAnswer(int questionNumber) {
+    return _questionBank[questionNumber].questionAnswer;
+  }
+
 }
