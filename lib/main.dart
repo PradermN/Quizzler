@@ -28,21 +28,13 @@ class QuizPage extends StatefulWidget {
 
 class QuizPageState extends State<QuizPage> {
 
-  List<Icon> scoreKeeper = [
-    // Icon(
-    //   Icons.check,
-    //   color: Colors.green,
-    // ),
-    // Icon(
-    //   Icons.close,
-    //   color: Colors.red,
-    // ),
-    // Icon(
-    //   Icons.check,
-    //   color: Colors.green,
-    // ),
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.'
   ];
-
+  int questionIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,7 +47,7 @@ class QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionIndex],
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
@@ -82,6 +74,7 @@ class QuizPageState extends State<QuizPage> {
                     ),
                   );
                 });
+                questionIndex++;
               },
             ),
           ),
@@ -106,6 +99,7 @@ class QuizPageState extends State<QuizPage> {
                     ),
                   );
                 });
+                questionIndex++;
               },
             ),
           ),
