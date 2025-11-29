@@ -1,6 +1,7 @@
 import 'question.dart';
 
 class QuizBrain {
+  int _questionNumber = 0;
   final List<Question> _questionBank = [
     Question('Flutter is developed by Google.', true),
     Question('Flutter can only be used for mobile app development.', false),
@@ -19,11 +20,16 @@ class QuizBrain {
     Question('Flutter uses Canvas for rendering elements on the screen.', true),
   ];
 
-  String getQuestionText(int questionNumber) {
-    return _questionBank[questionNumber].questionText;
+  void nextQuestion() {
+    if (_questionNumber < _questionBank.length - 1) {
+      _questionNumber++;
+    }
   }
-  bool getQuestionAnswer(int questionNumber) {
-    return _questionBank[questionNumber].questionAnswer;
+  String getQuestionText() {
+    return _questionBank[_questionNumber].questionText;
+  }
+  bool getQuestionAnswer() {
+    return _questionBank[_questionNumber].questionAnswer;
   }
 
 }
