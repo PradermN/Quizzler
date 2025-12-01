@@ -9,8 +9,9 @@ class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.teal.shade700,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -36,24 +37,26 @@ class QuizPageState extends State<QuizPage> {
     bool correctAnswer = quizBrain.getQuestionAnswer();
 
     setState(() {
-      if (quizBrain.isFinished() == true) {
+      if (userPickedAnswer == correctAnswer) {
+        scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+        quizBrain.incrementScore();
+      } else {
+        scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+      }
 
+      if (quizBrain.isFinished() == true) {
         Alert(
           context: context,
           title: 'Finished!',
-          desc: 'You\'ve reached the end of the quiz.',
+          desc:
+              'You\'ve reached the end of the quiz .\nYour score: ${quizBrain.getScore()}/${quizBrain.getLengthShuffledQuestionBank()}',
+          style: AlertStyle(backgroundColor: Colors.teal.shade700),
         ).show();
 
         quizBrain.reset();
 
         scoreKeeper = [];
-      }
-      else {
-        if (userPickedAnswer == correctAnswer) {
-          scoreKeeper.add(Icon(Icons.check, color: Colors.green));
-        } else {
-          scoreKeeper.add(Icon(Icons.close, color: Colors.red));
-        }
+      } else {
         quizBrain.nextQuestion();
       }
     });
@@ -112,14 +115,9 @@ class QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Row(children: scoreKeeper),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: scoreKeeper),
       ],
     );
   }
 }
 
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/

@@ -35,28 +35,54 @@ class QuizBrain {
     Question('Flutter uses Canvas for rendering elements on the screen.', true),
   ];
 
+  late List<Question> _shuffledQuestionBank;
+  int _score = 0;
+  final int _totalQuestionsAsked = 10;
+
+  QuizBrain() {
+    _shuffledQuestionBank = [..._questionBank]..shuffle();
+    _shuffledQuestionBank = _shuffledQuestionBank.take(_totalQuestionsAsked).toList();
+  }
+
+  int getLengthShuffledQuestionBank() {
+    return _shuffledQuestionBank.length;
+  }
+
   void nextQuestion() {
-    if (_questionNumber < _questionBank.length - 1) {
+    if (_questionNumber < _shuffledQuestionBank.length - 1) {
       _questionNumber++;
     }
   }
 
   String getQuestionText() {
-    return _questionBank[_questionNumber].questionText;
+    return _shuffledQuestionBank[_questionNumber].questionText;
   }
 
   bool getQuestionAnswer() {
-    return _questionBank[_questionNumber].questionAnswer;
+    return _shuffledQuestionBank[_questionNumber].questionAnswer;
   }
 
   bool isFinished() {
-    if (_questionNumber >= _questionBank.length - 1) {
+    if (_questionNumber >= _shuffledQuestionBank.length - 1) {
       return true;
     } else {
       return false;
     }
   }
+
+  void incrementScore() {
+    _score++;
+  }
+
+
+  int getScore() {
+    return _score;
+  }
+
   void reset() {
     _questionNumber = 0;
+    _score = 0;
+    _shuffledQuestionBank = [..._questionBank]..shuffle();
+    _shuffledQuestionBank = _shuffledQuestionBank.take(_totalQuestionsAsked).toList();
   }
 }
